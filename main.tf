@@ -35,39 +35,8 @@ resource "vault_policy" "namespace_admin_policy" {
   name   = "${var.entity_name}-policy"
   policy = <<EOT
 # Manage namespaces
-path "${vault_namespace.child_namespace.path}/sys/namespaces/*" {
+path "${vault_namespace.child_namespace.path}/*" {
   capabilities = ["create", "read", "update", "delete", "list", "sudo"]
-}
-path "${vault_namespace.child_namespace.path}/+/sys/namespaces/*" {
-  capabilities = ["create", "read", "update", "delete", "list", "sudo"]
-}
-# Manage policies
-path "${vault_namespace.child_namespace.path}/sys/policies/*" {
-  capabilities = ["create", "read", "update", "delete", "list", "sudo"]
-}
-path "${vault_namespace.child_namespace.path}/+/sys/policies/*" {
-  capabilities = ["create", "read", "update", "delete", "list", "sudo"]
-}
-# List policies
-path "${vault_namespace.child_namespace.path}/sys/policies/acl" {
-  capabilities = ["list"]
-}
-path "${vault_namespace.child_namespace.path}/+/sys/policies/acl" {
-  capabilities = ["list"]
-}
-# Enable and manage secrets engines
-path "${vault_namespace.child_namespace.path}/sys/mounts/*" {
-  capabilities = ["create", "read", "update", "delete", "list"]
-}
-path "${vault_namespace.child_namespace.path}/+/sys/mounts/*" {
-  capabilities = ["create", "read", "update", "delete", "list"]
-}
-# List available secrets engines
-path "${vault_namespace.child_namespace.path}/sys/mounts" {
-  capabilities = ["read"]
-}
-path "${vault_namespace.child_namespace.path}/+/sys/mounts" {
-  capabilities = ["read"]
 }
 EOT
 }
